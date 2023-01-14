@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8003:8003"
+    command: python -Wd manage.py runserver 0.0.0.0:8003
+    env_file:
+      - ./.env.dev
+    volumes:
+      - .:/code
+  db:
+    image: postgres:14.1-alpine
+    restart: always
+    env_file:
+      - ./.env.dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local

@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "democrance-api-test"
+version = "0.1.0"
+description = "A simple API that has a few REST endpoints."
+authors = ["Saad Aleem <aleemsaadullah@gmail.com>"]
+readme = "README.md"
+packages = [{include = "democranceapi"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.1.5"
+djangorestframework = "^3.14.0"
+django-extensions = "^3.2.1"
+pytest = "^7.2.0"
+psycopg2 = "^2.9.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
