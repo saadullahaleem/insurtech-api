@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.db.models import Count
+from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
@@ -10,7 +11,6 @@ from rest_framework.response import Response
 from core.api.filters import CustomerFilter, PolicyFilter
 from core.api.v1.serializers import CustomerSerializer, PolicySerializer
 from core.models import Policy
-
 from democranceapi.permissions import IsCustomer
 
 User = get_user_model()

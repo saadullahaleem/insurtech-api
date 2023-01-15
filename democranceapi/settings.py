@@ -167,6 +167,19 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Basic REST API using DRF and Python 3.11',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',
+    'TAGS': [
+        {
+            "name": "customers",
+            "description": "This API lets admins manage customers."
+        },
+        {
+            "name": "quotes",
+            "description": "This API can be accessed by both customers and "
+                           "admins. It manages quotes/policies. Policies are "
+                           "attached to the logged in users."
+        }
+    ]
 }
 
 SIMPLE_JWT = {
