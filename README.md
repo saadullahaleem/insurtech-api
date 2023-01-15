@@ -24,4 +24,4 @@ Available parameters are documented and can be viewed against the endpoints usin
 ## Authentication
 
 This backend uses JWT authentication powered by the [Django Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
-package. It uses access and refresh tokens. The default access token lifetime is set to 60 minutes.
+package. It uses access and refresh tokens. The default access token lifetime is set to 60 minutes. The same `User` model is used for both types of users and both share the same authentication mechanism.
