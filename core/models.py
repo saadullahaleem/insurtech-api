@@ -39,7 +39,8 @@ class Policy(TimeStampedModel):
         QUOTED = "QD"
         ACTIVE = "AT"
 
-    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL,
+                                 related_name="policies")
     premium = models.IntegerField()
     cover = models.IntegerField()
     state = models.CharField(

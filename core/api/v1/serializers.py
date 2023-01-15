@@ -24,6 +24,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField()
     last_name = serializers.CharField()
     password = serializers.CharField(write_only=True)
+    policies_count = serializers.IntegerField(read_only=True)
 
     def create(self, validated_data):
         with transaction.atomic():
@@ -36,7 +37,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("id", "first_name", "last_name", "email", "profile",
-                  "password")
+                  "password", "policies_count")
 
 
 class PolicySerializer(serializers.ModelSerializer):
