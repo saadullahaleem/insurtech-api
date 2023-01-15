@@ -1,7 +1,10 @@
+import secrets
+
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import EmailValidator
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
+from simple_history.models import HistoricalRecords
 
 
 class Profile(models.Model):
@@ -19,10 +22,15 @@ class User(AbstractUser):
                                    blank=True, null=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
         return self.email
+
+    def save(self, *args, **kwargs):
+        self.username = f"{self.email.split('@')[0]}" \
+                        f"_{secrets.token_urlsafe(3)}"
+        return super().save(*args, **kwargs)
 
 
 class Policy(TimeStampedModel):
@@ -31,10 +39,23 @@ class Policy(TimeStampedModel):
         QUOTED = "QD"
         ACTIVE = "AT"
 
+    customer = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     premium = models.IntegerField()
-    cost = models.IntegerField()
+    cover = models.IntegerField()
     state = models.CharField(
         max_length=2,
         choices=State.choices,
         default=State.NEW
     )
+    history = HistoricalRecords()
+
+    def activate(self):
+        self.state = self.State.ACTIVE
+        self.save()
+
+    @property
+    def is_active(self):
+        return self.state == self.State.ACTIVE
+
+    def __str__(self):
+        return f"{self.customer.email}-{self.premium}-{self.state}"
