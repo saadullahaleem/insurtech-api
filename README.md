@@ -1,5 +1,6 @@
 ## How to start
-Simply run `make setup` to setup and run the server. You can use `make shell` to start an instance of the django shell.
+Simply run `make setup` to setup and run the server. You can use `make shell` to connect to the container or 
+`make django_shell` to start the django shell.
 
 The documentation can be viewed at either `/api/schema/swagger-ui/` or `api/schema/redoc/`. Swagger can be used to try 
 out the APIs. The Swagger UI provides extensive support for making API calls to available endpoints. It also lets you 
