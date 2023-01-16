@@ -1,3 +1,6 @@
+## Overview
+This project uses Python 3.11 and Django 4.1.5. Poetry is used for dependency management. It also uses Docker.
+
 ## How to start
 Simply run `make setup` to setup and run the server. You can use `make shell` to connect to the container or 
 `make django_shell` to start the django shell.
