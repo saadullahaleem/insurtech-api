@@ -1,9 +1,10 @@
 import secrets
 
 from django.contrib.auth.models import AbstractUser
-from django.core.validators import EmailValidator
+from django.core.exceptions import ValidationError
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
+from rest_framework.exceptions import ValidationError as DRFValidationError
 from simple_history.models import HistoricalRecords
 
 
@@ -13,11 +14,8 @@ class Profile(models.Model):
 
 
 class User(AbstractUser):
-    email_validator = EmailValidator()
-
     is_customer = models.BooleanField(default=False)
-    email = models.CharField(max_length=150, unique=True,
-                             validators=[email_validator])
+    email = models.EmailField(unique=True)
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE,
                                    blank=True, null=True)
 
@@ -30,6 +28,10 @@ class User(AbstractUser):
     def save(self, *args, **kwargs):
         self.username = f"{self.email.split('@')[0]}" \
                         f"_{secrets.token_urlsafe(3)}"
+        try:
+            self.full_clean()
+        except ValidationError as e:
+            raise DRFValidationError(e)
         return super().save(*args, **kwargs)
 
 

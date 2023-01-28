@@ -3,4 +3,4 @@ from rest_framework.permissions import BasePermission
 
 class IsCustomer(BasePermission):
     def has_permission(self, request, view):
-        return bool(request.user and request.user.is_customer)
+        return bool(request.admin and request.admin.is_customer)
