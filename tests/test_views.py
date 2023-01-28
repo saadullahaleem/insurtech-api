@@ -97,3 +97,11 @@ class PolicyViewSetTest(APITestCase):
             reverse('quotes-detail', args=[self.policy.id]), data,
             content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_activate_policy_authenticated(self):
+        self.client.force_authenticate(self.admin)
+        response = self.client.put(
+            reverse('quotes-activate', args=[self.policy.id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.policy.refresh_from_db()
+        self.assertEqual(self.policy.state, Policy.State.ACTIVE)
