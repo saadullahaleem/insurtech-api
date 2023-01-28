@@ -1,3 +1,6 @@
+## Overview
+This project uses Python 3.11 and Django 4.1.5. Poetry is used for dependency management. It also uses Docker.
+
 ## How to start
 Simply run `make setup` to setup and run the server. You can use `make shell` to connect to the container or 
 `make django_shell` to start the django shell.
@@ -24,4 +27,4 @@ Available parameters are documented and can be viewed against the endpoints usin
 ## Authentication
 
 This backend uses JWT authentication powered by the [Django Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
-package. It uses access and refresh tokens. The default access token lifetime is set to 60 minutes.
+package. It uses access and refresh tokens. The default access token lifetime is set to 60 minutes. The same `User` model is used for both types of users and both share the same authentication mechanism.
