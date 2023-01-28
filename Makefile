@@ -17,7 +17,8 @@ django_shell:
 
 test:
 	docker-compose up -d
-	docker exec -it test_api python manage.py test --keepdb
+	docker exec -it test_api coverage run --source='.' manage.py test --keepdb
+	docker exec -it test_api coverage report
 
 shell:
 	docker exec -it test_api /bin/sh
